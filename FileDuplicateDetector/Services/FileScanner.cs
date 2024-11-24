@@ -97,7 +97,7 @@ internal class FileScanner : IFileScanner
         while (directories.Count > 0)
         {
             var currentDirectory = directories.Pop();
-            IEnumerable<string> files = null;
+            IEnumerable<string>? files = null;
 
             try
             {
@@ -119,7 +119,7 @@ internal class FileScanner : IFileScanner
                 }
             }
 
-            IEnumerable<string> subDirectories = null;
+            IEnumerable<string>? subDirectories = null;
 
             try
             {

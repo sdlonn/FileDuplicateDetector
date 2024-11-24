@@ -7,14 +7,14 @@ public class ParameterService : IParameterService
     private readonly string[] _args;
     private readonly Dictionary<string, string> _parameters = new();
     private readonly string[] _requiredParams = { Constants.Paths };
-    private List<string> _paths;
+    private readonly List<string> _paths;
 
     public ParameterService(string[] args)
     {
         _args = args;
         Parse();
         ValidateParameters();
-        SetPaths();
+        _paths = SetPaths();
     }
 
     public void Parse()
@@ -69,9 +69,9 @@ public class ParameterService : IParameterService
         }
     }
 
-    private void SetPaths()
+    private List<string> SetPaths()
     {
-        _paths = _parameters[Constants.Paths]
+        return _parameters[Constants.Paths]
             .Split(Constants.PathSeparator)
             .Select(path => path.EndsWith(Constants.WindowsDirectorySeparator)
                 ? path

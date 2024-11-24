@@ -4,5 +4,5 @@ namespace FileDuplicateDetector.Printers;
 
 internal interface IConsolePrinter
 {
-    Task RunStatusPrinter(ScanResult scanResults);
+    void RunStatusPrinter(ScanResult scanResults);
 }

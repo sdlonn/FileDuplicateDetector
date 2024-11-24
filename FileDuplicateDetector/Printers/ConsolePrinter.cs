@@ -16,7 +16,7 @@ internal class ConsolePrinter : IConsolePrinter
     }
 
     // TODO Remake all
-    public async Task RunStatusPrinter(ScanResult scanResults)
+    public void RunStatusPrinter(ScanResult scanResults)
     {
         List<string> paths = scanResults.ProcessorModels.Keys.ToList();
         var totalPaths = paths.Count;
