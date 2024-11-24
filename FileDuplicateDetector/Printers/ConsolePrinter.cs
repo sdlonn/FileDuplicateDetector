@@ -1,4 +1,5 @@
-﻿using FileDuplicateDetector.Models;
+﻿using System.Diagnostics;
+using FileDuplicateDetector.Models;
 using FileDuplicateDetector.Services;
 
 namespace FileDuplicateDetector.Printers;
@@ -25,13 +26,29 @@ internal class ConsolePrinter : IConsolePrinter
             Console.WriteLine();
         }
 
-        while (!_cancellationService.IsCancellationRequested())
+        var stopPrinting = false;
+        var cancellationRequested = false;
+        var stopwatch = new Stopwatch();
+
+        while (!stopPrinting)
         {
             for (var i = 0; i < totalPaths; i++)
             {
                 var path = paths[i];
                 ShowProgress(scanResults.ProcessorModels[path].Paths.Count,
                     scanResults.ProcessorModels[path].ProcessedFiles, path, i, totalPaths);
+            }
+
+            if (!cancellationRequested && _cancellationService.IsCancellationRequested())
+            {
+                cancellationRequested = true;
+                stopwatch.Start();
+            }
+
+            if (cancellationRequested && stopwatch.ElapsedMilliseconds > 3000)
+            {
+                stopPrinting = true;
+                // TODO Add some more to console
             }
 
             Thread.Sleep(50);
