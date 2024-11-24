@@ -8,13 +8,15 @@ internal class FileDuplicateScannerApplication : IFileDuplicateScannerApplicatio
     private readonly IFileScanner _fileScanner;
     private readonly IConsolePrinter _consolePrinter;
     private readonly IFileWriter _fileWriter;
+    private readonly ICancellationService _cancellationService;
 
-    public FileDuplicateScannerApplication(IParameterService parameterService, IFileScanner fileScanner,
+    public FileDuplicateScannerApplication(ICancellationService cancellationService, IFileScanner fileScanner,
         IConsolePrinter consolePrinter, IFileWriter fileWriter)
     {
         _fileScanner = fileScanner;
         _consolePrinter = consolePrinter;
         _fileWriter = fileWriter;
+        _cancellationService = cancellationService;
     }
 
     public async Task Run(string[] args)
@@ -27,6 +29,7 @@ internal class FileDuplicateScannerApplication : IFileDuplicateScannerApplicatio
 
         await _fileWriter.WriteResult(processedFilesResult);
 
+        _cancellationService.RequestCancellation();
         await statusPrinter;
     }
 }

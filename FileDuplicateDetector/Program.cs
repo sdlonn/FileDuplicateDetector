@@ -18,7 +18,7 @@ internal class Program
         var cancellationTokenSource = new CancellationTokenSource();
 
         return new ServiceCollection()
-            .AddSingleton<ICancellationService>(new CancellationService(cancellationTokenSource.Token))
+            .AddSingleton<ICancellationService>(new CancellationService(cancellationTokenSource))
             .AddSingleton<IParameterService>(new ParameterService(args))
             .AddTransient<IMd5Service, Md5Service>()
             .AddSingleton<IFileScanner, FileScanner>()
