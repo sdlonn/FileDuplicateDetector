@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileDuplicateDetector": {
+      "commandName": "Project",
+      "commandLineArgs": "--Paths=\"x:;y:\" --ReportFile=\"x:\\report.txt\" --Pattern=\"\\.(jpg|jpeg|png|gif|bmp|tiff|webp)$\" --Parallel=2\r\n"
+    }
+  }
+}
